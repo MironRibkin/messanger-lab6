@@ -10,6 +10,8 @@ interface IUsersTableHeaderProps {
 export const UsersTableHeader: FC = () => {
   return (
     <Stack
+      height="70px"
+      alignItems="center"
       justifyContent="space-between"
       p="5px 10px"
       direction="row"

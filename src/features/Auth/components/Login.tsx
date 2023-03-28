@@ -29,12 +29,12 @@ export const Login: FC = () => {
   };
 
   useEffect(() => {
-    if (data?.token) {
-      console.log(data.token);
-      localStorage.setItem("token", data.token ?? "");
+    if (data?.name) {
+      console.log(data.name);
+      localStorage.setItem("name", data.name ?? "");
       navigate("/home", { replace: true });
     }
-  }, [data?.token]);
+  }, [data?.name]);
 
   return (
     <Container component="main" maxWidth="xs">

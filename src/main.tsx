@@ -6,10 +6,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { store } from "./store";
 import { Provider } from "react-redux";
 import { Login } from "./features/Auth/components/Login";
-import { Registration } from "./features/Auth/components/Registration";
 import { UserList } from "./features/Users/components/UserList";
 import { Toaster } from "react-hot-toast";
-import { ProtectedRoute } from "./common/components/ProtectedRoute";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <BrowserRouter>
@@ -24,7 +22,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
             path="/home"
             element={
               // <ProtectedRoute>
-                <UserList />
+              <UserList />
               // </ProtectedRoute>
             }
           />

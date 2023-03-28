@@ -47,11 +47,11 @@ export default function MessageListForm() {
               id="panel1a-header"
             >
               <Typography fontWeight={550} fontSize="14px">
-                Тема
+                Тема:
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <Typography>сообщение</Typography>
+              <Typography>сообщение:</Typography>
             </AccordionDetails>
           </Accordion>
         </Stack>

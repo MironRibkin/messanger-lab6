@@ -1,6 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { ILoginForm } from "../components/Login";
-import { IRegistrationForm } from "../components/Registration";
 import { IUser } from "../../Users/types/users";
 
 interface ICreateUserApiResponse {
@@ -9,6 +8,7 @@ interface ICreateUserApiResponse {
 
 interface ILoginApiResponse {
   token: string;
+  name: string;
   record: IUser;
 }
 
@@ -27,19 +27,19 @@ export const authApi = createApi({
         };
       },
     }),
-    createUser: builder.mutation<ICreateUserApiResponse, IRegistrationForm>({
-      query: (payload: IRegistrationForm) => {
-        return {
-          url: "register",
-          method: "POST",
-          body: {
-            ...payload,
-            passwordConfirm: payload.password,
-          },
-        };
-      },
-    }),
+    // createUser: builder.mutation<ICreateUserApiResponse, IRegistrationForm>({
+    //   query: (payload: IRegistrationForm) => {
+    //     return {
+    //       url: "register",
+    //       method: "POST",
+    //       body: {
+    //         ...payload,
+    //         passwordConfirm: payload.password,
+    //       },
+    //     };
+    //   },
+    // }),
   }),
 });
 
-export const { useLoginMutation, useCreateUserMutation } = authApi;
+export const { useLoginMutation } = authApi;

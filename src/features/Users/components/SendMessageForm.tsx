@@ -22,20 +22,23 @@ export const SendMessageForm: FC = () => {
         alignItems="center"
         flexDirection="column"
       >
-        <Grid item xs={12} width="100%"></Grid>
         <Grid item xs={12} width="100%">
-          <TextField size="small" fullWidth placeholder="Enter your title" />
+          Кому:
         </Grid>
         <Grid item xs={12} width="100%">
-          <TextField
-            placeholder="Enter your text"
-            multiline
-            minRows={10}
+          <TextField size="small" fullWidth placeholder="Title" />
+        </Grid>
+        <Grid item xs={12} width="100%">
+          <TextField placeholder="Message" multiline minRows={10} fullWidth />
+        </Grid>
+        <Grid item xs={12} width="100%">
+          <Button
+            type="submit"
+            variant="contained"
+            sx={{ mt: 3 }}
             fullWidth
-          />
-        </Grid>
-        <Grid item xs={12} width="100%">
-          <Button type="submit" variant="contained" sx={{ mt: 3 }} fullWidth>
+            color="success"
+          >
             Send message
           </Button>
         </Grid>

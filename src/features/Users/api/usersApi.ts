@@ -14,42 +14,6 @@ export const usersApi = createApi({
   }),
   tagTypes: ["Users"],
   endpoints: (builder) => ({
-    deleteUser: builder.mutation<void, string[]>({
-      invalidatesTags: ["Users"],
-      query: (ids) => {
-        return {
-          url: `/`,
-          method: "DELETE",
-          body: {
-            ids: ids,
-          },
-        };
-      },
-    }),
-    banUser: builder.mutation<void, string[]>({
-      invalidatesTags: ["Users"],
-      query: (ids) => {
-        return {
-          url: `/block`,
-          method: "PUT",
-          body: {
-            ids: ids,
-          },
-        };
-      },
-    }),
-    unBanUser: builder.mutation<void, string[]>({
-      invalidatesTags: ["Users"],
-      query: (ids) => {
-        return {
-          url: `/unblock`,
-          method: "PUT",
-          body: {
-            ids: ids,
-          },
-        };
-      },
-    }),
     getUsers: builder.query<IGetUsersApiResponse, void>({
       providesTags: ["Users"],
       query: () => {
@@ -70,10 +34,4 @@ export const usersApi = createApi({
   }),
 });
 
-export const {
-  useGetUsersQuery,
-  useDeleteUserMutation,
-  useBanUserMutation,
-  useUnBanUserMutation,
-  useGetUserQuery,
-} = usersApi;
+export const { useGetUserQuery } = usersApi;

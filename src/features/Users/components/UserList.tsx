@@ -13,7 +13,6 @@ export const UserList: FC = () => {
         justifyContent="space-between"
         p="20px 80px"
       >
-        {/*<Message />*/}
         <SendMessageForm />
         <MessageListForm />
       </Stack>
