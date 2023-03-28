@@ -1,5 +1,6 @@
 import { Button, Stack, Typography } from "@mui/material";
 import React, { ChangeEvent, FC } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface IUsersTableHeaderProps {
   numSelected: number;
@@ -8,6 +9,7 @@ interface IUsersTableHeaderProps {
 }
 
 export const UsersTableHeader: FC = () => {
+  const navigate = useNavigate();
   return (
     <Stack
       height="70px"
@@ -23,7 +25,9 @@ export const UsersTableHeader: FC = () => {
       <Typography variant="h6" color="success">
         MIRON
       </Typography>
-      <Button color={"error"}>LOG OUT</Button>
+      <Button color={"error"} onClick={() => navigate("/login")}>
+        LOG OUT
+      </Button>
     </Stack>
   );
 };

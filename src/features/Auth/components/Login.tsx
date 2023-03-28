@@ -6,7 +6,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { FC, useEffect } from "react";
+import React, { FC } from "react";
 import { useNavigate } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useLoginMutation } from "../api/authApi";
@@ -27,14 +27,7 @@ export const Login: FC = () => {
   const onSubmit: SubmitHandler<ILoginForm> = async (payload) => {
     login(payload);
   };
-
-  useEffect(() => {
-    if (data?.name) {
-      console.log(data.name);
-      localStorage.setItem("name", data.name ?? "");
-      navigate("/home", { replace: true });
-    }
-  }, [data?.name]);
+  navigate("/home");
 
   return (
     <Container component="main" maxWidth="xs">

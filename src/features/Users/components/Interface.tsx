@@ -4,7 +4,7 @@ import { UsersTableHeader } from "./UserTableHeader";
 import MessageListForm from "./MessageListForm";
 import { SendMessageForm } from "./SendMessageForm";
 
-export const UserList: FC = () => {
+export const Interface: FC = () => {
   return (
     <Box height="100vh">
       <UsersTableHeader />

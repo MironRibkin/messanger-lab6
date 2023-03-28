@@ -7,7 +7,7 @@ export const SendMessageForm: FC = () => {
       component="form"
       noValidate
       width="500px"
-      height="450px"
+      height="500px"
       border="1px solid #dbdbdb"
       p="12px"
       bgcolor="white"
@@ -23,13 +23,19 @@ export const SendMessageForm: FC = () => {
         flexDirection="column"
       >
         <Grid item xs={12} width="100%">
-          Кому:
+          <TextField fullWidth label="From" color="success" id="fullWidth" />
         </Grid>
         <Grid item xs={12} width="100%">
-          <TextField size="small" fullWidth placeholder="Title" />
+          <TextField fullWidth label="Tittle" color="success" id="fullWidth" />
         </Grid>
         <Grid item xs={12} width="100%">
-          <TextField placeholder="Message" multiline minRows={10} fullWidth />
+          <TextField
+            label="Message"
+            multiline
+            color="success"
+            minRows={10}
+            fullWidth
+          />
         </Grid>
         <Grid item xs={12} width="100%">
           <Button
