@@ -6,7 +6,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { store } from "./store";
 import { Provider } from "react-redux";
 import { Login } from "./features/Users/components/Login";
-import { Interface } from "./features/Users/components/Interface";
+import { Home } from "./features/Users/components/Home";
 import { Toaster } from "react-hot-toast";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
@@ -17,7 +17,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/home" element={<Interface />} />
+          <Route path="/home" element={<Home />} />
         </Routes>
         <Toaster />
       </Provider>
