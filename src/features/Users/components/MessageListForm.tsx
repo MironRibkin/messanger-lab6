@@ -5,6 +5,9 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import { Avatar, Box, Paper, Stack } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store";
+import { useGetMessagesQuery } from "../api/messageApi";
 
 export default function MessageListForm() {
   function stringToColor(string: string) {
@@ -40,6 +43,11 @@ export default function MessageListForm() {
       setExpanded(isExpanded ? panel : false);
     };
 
+  const { currentUserName } = useSelector((state: RootState) => state.app);
+  const { data } = useGetMessagesQuery(currentUserName, {
+    pollingInterval: 5000,
+  });
+
   return (
     <Paper
       sx={{
@@ -51,69 +59,76 @@ export default function MessageListForm() {
         minWidth: 1100,
       }}
     >
-      <Paper variant="outlined">
-        <Stack>
-          <Box
-            sx={{
-              display: "flex",
-              gap: 2,
-              flexDirection: "column",
-              bgcolor: "background.paper",
-              paddingLeft: 2,
-              paddingRight: 2,
-              paddingTop: 2,
-              paddingBottom: 2,
-              minWidth: 400,
-            }}
-          >
+      {data?.map((message) => (
+        <Paper key={message.id} variant="outlined">
+          <Stack>
             <Box
               sx={{
                 display: "flex",
-                flexDirection: "row",
-                gap: 1,
-                alignItems: "center",
+                gap: 2,
+                flexDirection: "column",
                 bgcolor: "background.paper",
+                paddingLeft: 2,
+                paddingRight: 2,
+                paddingTop: 2,
+                paddingBottom: 2,
+                minWidth: 400,
               }}
             >
-              <Avatar {...stringAvatar("Miron")} />
-              <Typography fontWeight={400} fontSize="16px">
-                MIRON
-              </Typography>
-              <Typography color="gray" fontSize="12px">
-                21.05, 18:34
-              </Typography>
-            </Box>
-            <Accordion
-              expanded={expanded === "panel1"}
-              onChange={handleChange("panel1")}
-            >
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel1bh-content"
-                id="panel1bh-header"
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  gap: 1,
+                  alignItems: "center",
+                  bgcolor: "background.paper",
+                }}
               >
-                <Typography
-                  sx={{ width: "33%", flexShrink: 0, color: "text.secondary" }}
+                <Avatar {...stringAvatar(message.sender)} />
+                <Typography fontWeight={400} fontSize="16px">
+                  {message.sender}
+                </Typography>
+                <Typography color="gray" fontSize="12px">
+                  {message.date}
+                </Typography>
+              </Box>
+              <Accordion
+                expanded={expanded === message.id}
+                onChange={handleChange(message.id)}
+              >
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel1bh-content"
+                  id={message.id}
                 >
-                  Tittle:
-                </Typography>
-                <Typography>Hello World</Typography>
-              </AccordionSummary>
-              <AccordionDetails>
-                <Typography
-                  sx={{ width: "33%", flexShrink: 0, color: "text.secondary" }}
-                >
-                  message:
-                </Typography>
-                <Typography>
-                  Nulla facilisi. Phasellus sollicitudin nulla et quam mattis
-                  feugiat. Aliquam eget maximus est, id dignissim quam.
-                </Typography>
-              </AccordionDetails>
-            </Accordion>
-          </Box>
-        </Stack>
-      </Paper>
+                  <Typography
+                    sx={{
+                      width: "33%",
+                      flexShrink: 0,
+                      color: "text.secondary",
+                    }}
+                  >
+                    Tittle:
+                  </Typography>
+                  <Typography>{message.title}</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Typography
+                    sx={{
+                      width: "33%",
+                      flexShrink: 0,
+                      color: "text.secondary",
+                    }}
+                  >
+                    message:
+                  </Typography>
+                  <Typography>{message.body}</Typography>
+                </AccordionDetails>
+              </Accordion>
+            </Box>
+          </Stack>
+        </Paper>
+      ))}
     </Paper>
   );
 }

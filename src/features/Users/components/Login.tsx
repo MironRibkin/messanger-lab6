@@ -6,17 +6,21 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useLoginMutation } from "../api/authApi";
+import { useLoginUserMutation } from "../api/usersApi";
+import { useDispatch } from "react-redux";
+import { setCurrentUserName } from "../../../slice/appSlice";
 
 export interface ILoginForm {
   name: string;
 }
 
 export const Login: FC = () => {
-  const [login, { data }] = useLoginMutation();
+  const dispatch = useDispatch();
+  const [loginUser] = useLoginUserMutation();
+  const [value, setValue] = useState("");
   const navigate = useNavigate();
   const {
     register,
@@ -25,10 +29,11 @@ export const Login: FC = () => {
   } = useForm<ILoginForm>();
 
   const onSubmit: SubmitHandler<ILoginForm> = async (payload) => {
-    login(payload);
+    if (value.trim().length > 0) {
+      dispatch(setCurrentUserName(payload.name));
+      loginUser({ name: payload.name }).then(() => navigate("/home"));
+    }
   };
-  navigate("/home");
-
   return (
     <Container component="main" maxWidth="xs">
       <Stack
@@ -39,7 +44,7 @@ export const Login: FC = () => {
         justifyContent="center"
       >
         <Typography component="h1" variant="h5">
-          Name
+          Hello
         </Typography>
         <Box
           component="form"
@@ -57,6 +62,7 @@ export const Login: FC = () => {
             label="Enter your name"
             color="success"
             error={!!errors?.name}
+            onChange={({ target: { value } }) => setValue(value)}
           />
           <Button
             type="submit"

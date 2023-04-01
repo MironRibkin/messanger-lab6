@@ -1,37 +1,29 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { IUser } from "../types/users";
-import { prepareAuthHeaders } from "../../../common/utils/prepareAuthHeaders";
-
-interface IGetUsersApiResponse {
-  items: IUser[];
-}
 
 export const usersApi = createApi({
   reducerPath: "usersApi",
-  baseQuery: fetchBaseQuery({
-    baseUrl: `${import.meta.env.VITE_BACKEND_URL}/users`,
-    prepareHeaders: prepareAuthHeaders,
-  }),
-  tagTypes: ["Users"],
-  endpoints: (builder) => ({
-    getUsers: builder.query<IGetUsersApiResponse, void>({
-      providesTags: ["Users"],
-      query: () => {
+  baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_BACKEND_URL }),
+  endpoints: (build) => ({
+    getUsers: build.query<{ username: string }[], void>({
+      query() {
         return {
-          url: "/all",
+          url: "/users",
         };
       },
     }),
-    getUser: builder.query<IUser, void>({
-      providesTags: ["Users"],
-      keepUnusedDataFor: 0,
-      query: () => {
+
+    loginUser: build.mutation<void, IUser>({
+      query(data) {
         return {
-          url: "/",
+          url: "/users/login",
+          method: "post",
+          body: data,
         };
       },
     }),
   }),
 });
 
-export const { useGetUserQuery } = usersApi;
+export const { useGetUsersQuery, useLoginUserMutation, useLazyGetUsersQuery } =
+  usersApi;

@@ -1,14 +1,20 @@
 import { Button, Stack, Typography } from "@mui/material";
-import React, { ChangeEvent, FC } from "react";
+import React, { FC } from "react";
 import { useNavigate } from "react-router-dom";
+// import { RootState } from "@reduxjs/toolkit/dist/query/core/apiState";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../../store";
+import { setCurrentUserName } from "../../../slice/appSlice";
 
-interface IUsersTableHeaderProps {
-  numSelected: number;
-  onSelectAllClick: (event: ChangeEvent<HTMLInputElement>) => void;
-  rowCount: number;
-}
+// interface IUsersTableHeaderProps {
+//   numSelected: number;
+//   onSelectAllClick: (event: ChangeEvent<HTMLInputElement>) => void;
+//   rowCount: number;
+// }
 
 export const UsersTableHeader: FC = () => {
+  const dispatch = useDispatch();
+  const { currentUserName } = useSelector((state: RootState) => state.app);
   const navigate = useNavigate();
   return (
     <Stack
@@ -23,9 +29,15 @@ export const UsersTableHeader: FC = () => {
       top="0"
     >
       <Typography variant="h6" color="success">
-        MIRON
+        {currentUserName}
       </Typography>
-      <Button color={"error"} onClick={() => navigate("/login")}>
+      <Button
+        color={"error"}
+        onClick={() => {
+          navigate("/login");
+          dispatch(setCurrentUserName(""));
+        }}
+      >
         LOG OUT
       </Button>
     </Stack>
